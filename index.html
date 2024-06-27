@@ -16,18 +16,10 @@
    } </style> 
 </head> 
   <body> 
-<script>
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    <button id="scroll-button" class="fixed-button" style="bottom: 20px;" onclick="scrollToTopOrBottom()">Прыжок</button>
 
-  if (dayOfWeek === 1) { // 1 = Monday
-    document.getElementById("monday-text").style.display = "block";
-  } else {
-    document.getElementById("monday-text").style.display = "none";
-  }
-</script>
 
-    <p id="monday-text" style="display: none;">
+    <div id="monday-text" style="display: none;">
   <h1>Правила христианской жизни</h1>
   <ol>
     <li>В постели пробуждаясь, прежде всего помяни Бога и знамение Креста положи на себя.</li>
@@ -79,9 +71,9 @@
     <li>Читай азбуку сию, христианин, не реже одного раза в неделю. Это укрепит тебя на пути духовном. Аминь. И Господу слава во веки веков.</li>
   </ol>
   <p>Молитвенно с вами пребывающий духовный отец схиигумен Савва</p>
-</p>
+</div>
       
-    <button id="scroll-button" class="fixed-button" style="bottom: 20px;" onclick="scrollToTopOrBottom()">Прыжок</button>
+    
     
     <h1>Молитвы на сон грядущимя</h3>
     <h3>Молитва предначинательная</h3>
@@ -228,6 +220,15 @@
        window.scrollTo({ top: documentHeight - windowHeight, behavior: 'smooth' });
      }
    }
+  
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+  if (dayOfWeek === 1) { // 1 = Monday
+    document.getElementById("monday-text").style.display = "block";
+  } else {
+    document.getElementById("monday-text").style.display = "none";
+  }
 </script>
 </body>
 </html>
