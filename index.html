@@ -1,9 +1,12 @@
 <html> 
   <head> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
    <style> 
      body { 
-       text-align: center; font-family: "Times New Roman", sans-serif; 
+       text-align: center; 
+      font-family: "Times New Roman", sans-serif; 
+      touch-action: pinch-zoom;
+      
      } 
      
      h1, h2, h3 { font-weight: bold; }    
@@ -18,7 +21,8 @@
   <body> 
     <button id="scroll-button" class="fixed-button" style="bottom: 20px;" onclick="scrollToTopOrBottom()">Прыжок</button>
 
-
+   <!-- Add the id "pinch-me" to the element you want to pinch-zoom -->
+<div id="pinch-me">
     <div id="monday-text" style="display: none;">
   <h1>Правила христианской жизни</h1>
   <ol>
@@ -198,7 +202,7 @@
     
     
 
-    
+    </div>
 <script>
    let button = document.getElementById("scroll-button");
    let windowHeight = window.innerHeight;
@@ -390,6 +394,37 @@
          <p>Вечери Твоея тайныя днесь, Сыне Божий, причастника мя приими; не бо врагом Твоим тайну повем, ни лобзания Ти дам, яко Иуда, но яко разбойник исповедаю Тя: помяни мя, Господи, во Царствии Твоем.</p><br>
          `;
       }
+      
+      // увеличение шрифта вместо зума
+      // Get the element you want to pinch-zoom
+const pinchElement = document.getElementById("pinch-me");
+
+// Add the pinching class to the element
+pinchElement.classList.add("pinching");
+
+// Add event listeners for touchstart and touchmove
+pinchElement.addEventListener("touchstart", handleTouchStart);
+pinchElement.addEventListener("touchmove", handleTouchMove);
+
+let initialFontSize;
+let initialScale = 1;
+
+function handleTouchStart(event) {
+  initialFontSize = getComputedStyle(pinchElement).fontSize;
+  initialScale = 1;
+}
+
+function handleTouchMove(event) {
+  // Calculate the scale factor based on the pinch gesture
+  const touch1 = event.touches[0];
+  const touch2 = event.touches[1];
+  const distance = Math.sqrt(Math.pow(touch2.clientX - touch1.clientX, 2) + Math.pow(touch2.clientY - touch1.clientY, 2));
+  const scale = distance / initialScale;
+
+  // Update the font size based on the scale factor
+  pinchElement.style.fontSize = `${initialFontSize * scale}px`;
+}
+
 </script>
 </body>
 </html>
