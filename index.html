@@ -205,32 +205,8 @@
  
 <script>
   // кнопка Прыжок
-  let button = document.getElementById("scroll-button");
-  let windowHeight = window.innerHeight;
-  let documentHeight = document.body.offsetHeight;
-  window.addEventListener("scroll", function() {
-    let scrollPosition = window.scrollY;
-    if (scrollPosition + windowHeight >= documentHeight) {
-      button.style.top = "20px";
-      button.style.bottom = "auto";
-      button.style.display = "block"; // show the button
-    } else if (scrollPosition <= 0) {
-      button.style.top = "auto";
-      button.style.bottom = "20px";
-      button.style.display = "block"; // show the button
-    } else {
-      button.style.display = "none"; // hide the button
-    }
-  });
-  function scrollToTopOrBottom() {
-    let scrollPosition = window.scrollY;
-    if (scrollPosition + windowHeight >= documentHeight) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (scrollPosition <= 0) {
-      window.scrollTo({ top: documentHeight - windowHeight, behavior: 'smooth' });
-    }
-  }
   
+  // функция которая показыввет Правила христианской жизни каждый понедельник
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
@@ -396,7 +372,40 @@
          `;
       }
       
-      //
+      //кнопка прыжок которая показывает молитвы перед Причащением если нажать на нее три раза
+      let button = document.getElementById("scroll-button");
+      let prayerDiv = document.getElementById("prayer");
+      let windowHeight = window.innerHeight;
+      let documentHeight = document.body.offsetHeight;
+      let clickCount = 0; // add a counter
+
+      window.addEventListener("scroll", function() {
+        let scrollPosition = window.scrollY;
+        if (scrollPosition + windowHeight >= documentHeight) {
+          button.style.top = "20px";
+          button.style.bottom = "auto";
+          button.style.display = "block"; // show the button
+        } else if (scrollPosition <= 0) {
+          button.style.top = "auto";
+          button.style.bottom = "20px";
+          button.style.display = "block"; // show the button
+        } else {
+          button.style.display = "none"; // hide the button
+        }
+      });
+
+      function scrollToTopOrBottom() {
+        let scrollPosition = window.scrollY;
+        if (scrollPosition + windowHeight >= documentHeight) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (scrollPosition <= 0) {
+          window.scrollTo({ top: documentHeight - windowHeight, behavior: 'smooth' });
+        }
+        clickCount++; // increment the counter
+        if (clickCount === 3) { // show prayer div only when counter reaches 3
+          prayerDiv.style.display = "block";
+        }
+      }
       
 </script>
 </body>
