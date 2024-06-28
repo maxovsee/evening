@@ -232,8 +232,8 @@
   } else {
     document.getElementById("monday-text").style.display = "none";
   }
-  
-  // const today = new Date();
+    // Подтягивает молитвы ко причастию каждые 14 дней в пятницу
+      const today = new Date();
       const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday
       const fortnight = Math.floor(today.getDate() / 14); // every 14 days
 
