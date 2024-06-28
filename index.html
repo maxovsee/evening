@@ -20,10 +20,9 @@
    } </style> 
 </head> 
   <body> 
+    
     <button id="scroll-button" class="fixed-button" style="bottom: 20px;" onclick="scrollToTopOrBottom()">Прыжок</button>
 
-   <!-- Add the id "pinch-me" to the element you want to pinch-zoom -->
-<div class="pinching" id="pinch-me">
     <div id="monday-text" style="display: none;">
   <h1>Правила христианской жизни</h1>
   <ol>
@@ -203,7 +202,7 @@
     
     
 
-    </div>
+ 
 <script>
    let button = document.getElementById("scroll-button");
    let windowHeight = window.innerHeight;
@@ -396,36 +395,8 @@
          `;
       }
       
-      // увеличение шрифта вместо зума
-      // Get the element you want to pinch-zoom
-const pinchElement = document.getElementById("pinch-me");
-
-// Add the pinching class to the element
-pinchElement.classList.add("pinching");
-
-// Add event listeners for touchstart and touchmove
-pinchElement.addEventListener("touchstart", handleTouchStart);
-pinchElement.addEventListener("touchmove", handleTouchMove);
-
-let initialFontSize;
-let initialScale = 1;
-
-function handleTouchStart(event) {
-  initialFontSize = getComputedStyle(pinchElement).fontSize;
-  initialScale = 1;
-}
-
-function handleTouchMove(event) {
-  // Calculate the scale factor based on the pinch gesture
-  const touch1 = event.touches[0];
-  const touch2 = event.touches[1];
-  const distance = Math.sqrt(Math.pow(touch2.clientX - touch1.clientX, 2) + Math.pow(touch2.clientY - touch1.clientY, 2));
-  const scale = distance / initialScale;
-
-  // Update the font size based on the scale factor
-  pinchElement.style.fontSize = `${initialFontSize * scale}px`;
-}
-
+      //
+      
 </script>
 </body>
 </html>
