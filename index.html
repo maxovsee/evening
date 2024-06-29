@@ -243,10 +243,10 @@
   }
     // Подтягивает молитвы ко причастию каждые 14 дней в субботу
       const Saturdays_today = new Date();
-      const SaturdaysDayOfWeek = Saturdays_today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday
-      const fortnight = Math.floor(today.getDate() / 14); // every 14 days
+const SaturdaysDayOfWeek = Saturdays_today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday
+const fortnight = Math.floor(Saturdays_today.getDate() / 14); // every 14 days
 
-      if (SaturdaysDayOfWeek === 6 && fortnight % 2 !== 0) {
+if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ? 1 : 0)) % 2 === 0) {
         document.getElementById("prayer").innerHTML =
           `<h1>Последование ко Святому Причащению</h1> 
           <p>Начало обычное</p>
