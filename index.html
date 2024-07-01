@@ -12,7 +12,14 @@
       -moz-user-select: none; 
       -ms-user-select: none; 
       user-select: none;
-      
+       .night-mode {
+   background-color: #333;
+   color: #fff;
+ }
+
+ .rotate {
+   transform: rotate(90deg);
+ }
      } 
      
      h1, h2, h3 { font-weight: bold; }    
@@ -25,6 +32,14 @@
    } </style> 
 </head> 
   <body> 
+    
+    <!-- Add a div for the menu -->
+<div id="menu" style="display: none;">
+ <ul>
+   <li><a href="#" id="night-mode">Night Mode</a></li>
+   <li><a href="#" id="rotate">Rotate</a></li>
+ </ul>
+</div>
     
     <button id="scroll-button" class="fixed-button" style="bottom: 20px;" onclick="scrollToTopOrBottom()">Прыжок</button>
 
@@ -401,7 +416,39 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
          <p>Вечери Твоея тайныя днесь, Сыне Божий, причастника мя приими; не бо врагом Твоим тайну повем, ни лобзания Ти дам, яко Иуда, но яко разбойник исповедаю Тя: помяни мя, Господи, во Царствии Твоем.</p><br>
          `;
       }
-      
+      // меню удерживания
+      var longPressTimeout = null;
+
+ document.addEventListener("touchstart", function(event) {
+   longPressTimeout = setTimeout(function() {
+     var menu = document.getElementById("menu");
+     menu.style.display = "block";
+     menu.style.top = event.clientY + "px";
+     menu.style.left = event.clientX + "px";
+   }, 500); // 500ms delay for long press
+ });
+
+ document.addEventListener("touchend", function() {
+   clearTimeout(longPressTimeout);
+ });
+
+ document.addEventListener("click", function() {
+   var menu = document.getElementById("menu");
+   menu.style.display = "none";
+ });
+
+ // Add event listeners for the menu options
+ document.getElementById("night-mode").addEventListener("click", function() {
+   // Toggle night mode here
+   // For example:
+   document.body.classList.toggle("night-mode");
+ });
+
+ document.getElementById("rotate").addEventListener("click", function() {
+   // Toggle rotate here
+   // For example:
+   document.body.classList.toggle("rotate");
+ });
       
 </script>
 </body>
