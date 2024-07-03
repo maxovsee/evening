@@ -417,13 +417,13 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
 
   // каноны по одному в день
   const kanons = document.querySelectorAll('.kanon');
-let currentDay = 0;
+let currentDay = 3;
 
 function showKanon() {
   kanons.forEach((kanon, index) => {
     kanon.style.display = index === currentDay ? 'block' : 'none';
   });
-  currentDay = (currentDay + 3) % kanons.length;
+  currentDay = (currentDay + 1) % kanons.length;
 }
 
 showKanon();
