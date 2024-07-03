@@ -423,7 +423,7 @@ function showKanon() {
   kanons.forEach((kanon, index) => {
     kanon.style.display = index === currentDay ? 'block' : 'none';
   });
-  currentDay = (currentDay + 1) % kanons.length;
+  currentDay = (currentDay + 3) % kanons.length;
 }
 
 showKanon();
