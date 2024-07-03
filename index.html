@@ -24,8 +24,15 @@
 </head> 
   <body> 
     
-    
-    <h2>Канон Ангелу Хранителю</h2>
+    <div class="kanon" id="kanon-1"> 
+    <h2>покаянный ко Господу нашему Иисусу Христу</h2>
+    </div>
+    <div class="kanon" id="kanon-2"> 
+    <h2>Канон ко Пресвятой Богородице</h2>
+    </div>
+    <div class="kanon" id="kanon-3"> 
+    <h2>Канон к Ангелу Хранителю</h2>
+    </div>
 
     <button id="scroll-button" class="fixed-button" style="bottom: 20px;" onclick="scrollToTopOrBottom()">Прыжок</button>
 
@@ -402,7 +409,28 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
          <p>Вечери Твоея тайныя днесь, Сыне Божий, причастника мя приими; не бо врагом Твоим тайну повем, ни лобзания Ти дам, яко Иуда, но яко разбойник исповедаю Тя: помяни мя, Господи, во Царствии Твоем.</p><br>
          `;
       }
-     
+
+  // каноны по одному в день
+  function displayDiv(id) {
+      var divs = document.getElementsByClassName('kanon');
+      for (var i = 0; i < divs.length; i++) {
+        if (divs[i].id === id) {
+          divs[i].style.display = 'block';
+        } else {
+          divs[i].style.display = 'none';
+        }
+      }
+    }
+
+    setTimeout(function() {
+      displayDiv('kanon-1');
+      setTimeout(function() {
+        displayDiv('kanon-2');
+        setTimeout(function() {
+          displayDiv('kanon-3');
+        }, 24 * 60 * 60 * 1000); // display kanon-3 after 24 hours
+      }, 24 * 60 * 60 * 1000); // display kanon-2 after 24 hours
+    }, 24 * 60 * 60 * 1000); // display kanon-1 after 24 hours
 </script>
 </body>
 </html>
