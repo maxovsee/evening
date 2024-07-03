@@ -411,26 +411,20 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
       }
 
   // каноны по одному в день
-  function displayDiv(id) {
-      var divs = document.getElementsByClassName('kanon');
-      for (var i = 0; i < divs.length; i++) {
-        if (divs[i].id === id) {
-          divs[i].style.display = 'block';
-        } else {
-          divs[i].style.display = 'none';
-        }
-      }
-    }
+  const kanons = document.querySelectorAll('.kanon');
+let currentDay = 0;
 
-    setTimeout(function() {
-      displayDiv('kanon-1');
-      setTimeout(function() {
-        displayDiv('kanon-2');
-        setTimeout(function() {
-          displayDiv('kanon-3');
-        }, 24 * 60 * 60 * 1000); // display kanon-3 after 24 hours
-      }, 24 * 60 * 60 * 1000); // display kanon-2 after 24 hours
-    }, 24 * 60 * 60 * 1000); // display kanon-1 after 24 hours
+function showKanon() {
+  kanons.forEach((kanon, index) => {
+    kanon.style.display = index === currentDay ? 'block' : 'none';
+  });
+  currentDay = (currentDay + 1) % kanons.length;
+}
+
+showKanon();
+
+// Run the function daily using a timer (e.g., every 24 hours)
+setInterval(showKanon, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
 </script>
 </body>
 </html>
