@@ -433,22 +433,16 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
 
   //канон в день
   const kanons = document.querySelectorAll('.kanon');
-let currentDate = new Date().getDate();
+const today = new Date().getDate();
 
-function showKanon() {
-  const today = new Date().getDate();
-  if (today !== currentDate) {
-    currentDate = today;
-    kanons.forEach((kanon, index) => {
-      kanon.style.display = index + 1 === currentDate ? 'block' : 'none';
-    });
-  }
-}
+kanons.forEach((kanon, index) => {
+  kanon.style.display = index + 1 === today ? 'block' : 'none';
+});
 
-showKanon();
 
-// Run the function daily using a timer (e.g., every hour)
-setInterval(showKanon, 60 * 60 * 1000); // 1 hour in milliseconds
+
+
+
 
 
 </script>
