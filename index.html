@@ -430,21 +430,26 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
          `;
       }
 
-  // каноны по одному в день
+
+  //канон в день
   const kanons = document.querySelectorAll('.kanon');
-let currentDay = 1;
+let currentDate = new Date().getDate();
 
 function showKanon() {
-  kanons.forEach((kanon, index) => {
-    kanon.style.display = index === currentDay ? 'block' : 'none';
-  });
-  currentDay = (currentDay + 1) % kanons.length;
+  const today = new Date().getDate();
+  if (today !== currentDate) {
+    currentDate = today;
+    kanons.forEach((kanon, index) => {
+      kanon.style.display = index + 1 === currentDate ? 'block' : 'none';
+    });
+  }
 }
 
 showKanon();
 
-// Run the function daily using a timer (e.g., every 24 hours)
-setInterval(showKanon, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+// Run the function daily using a timer (e.g., every hour)
+setInterval(showKanon, 60 * 60 * 1000); // 1 hour in milliseconds
+
 </script>
 </body>
 </html>
