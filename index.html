@@ -435,8 +435,10 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
   const kanons = document.querySelectorAll('.kanon');
 let currentDay = new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
+let startIndex = (currentDay + 1) % kanons.length;
+
 kanons.forEach((kanon, index) => {
-  if (index === currentDay % kanons.length) {
+  if (index === startIndex) {
     kanon.style.display = 'block';
   } else {
     kanon.style.display = 'none';
