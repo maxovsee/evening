@@ -34,12 +34,25 @@
   } else {
     document.getElementById("monday-text").style.display = "none";
   }
-    // Подтягивает молитвы ко причастию каждые 14 дней в субботу
-      const Saturdays_today = new Date();
+  
+  
+  //подтягивает молитвы ко Причастию каждые две недели и дает возможность вызвать их по ужерживании
+// existing function
+const Saturdays_today = new Date();
 const SaturdaysDayOfWeek = Saturdays_today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday
 const fortnight = Math.floor(Saturdays_today.getDate() / 14); // every 14 days
 
 if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ? 1 : 0)) % 2 === 0) {
+    document.getElementById("prayer").innerHTML =
+      `<h1>Последование ко Святому Причащению</h1> 
+      <p>Начало обычное</p>`;
+}
+
+// new function for long press event
+let longPressTimeout = null;
+
+document.addEventListener('touchstart', function(event) {
+    longPressTimeout = setTimeout(function() {
         document.getElementById("prayer").innerHTML =
           `<h1>Последование ко Святому Причащению</h1> 
           <p>Начало обычное</p>
@@ -189,8 +202,17 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
          <h3>И еще:</h3>
          <p>Вечери Твоея тайныя днесь, Сыне Божий, причастника мя приими; не бо врагом Твоим тайну повем, ни лобзания Ти дам, яко Иуда, но яко разбойник исповедаю Тя: помяни мя, Господи, во Царствии Твоем.</p><br>
          `;
-      }
+    }, 500); // 500ms delay for long press
+}, false);
 
+document.addEventListener('touchend', function(event) {
+    clearTimeout(longPressTimeout);
+}, false);
+
+
+
+    
+          
 // канон в день со свайпом
 const kanons = document.querySelectorAll('.kanon');
 let currentDay = new Date().getDate(); // 1-31
