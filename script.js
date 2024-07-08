@@ -35,9 +35,8 @@
     document.getElementById("monday-text").style.display = "none";
   }
   
-  
-  //подтягивает молитвы ко Причастию каждые две недели и дает возможность вызвать их по ужерживании
-// existing function
+  //молитвы ко Причастию
+  // existing function
 const Saturdays_today = new Date();
 const SaturdaysDayOfWeek = Saturdays_today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday
 const fortnight = Math.floor(Saturdays_today.getDate() / 14); // every 14 days
@@ -52,11 +51,12 @@ if (SaturdaysDayOfWeek === 6 && (fortnight + (Saturdays_today.getMonth() === 6 ?
 let longPressTimeout = null;
 
 document.addEventListener('touchstart', function(event) {
-    longPressTimeout = setTimeout(function() {
-        document.getElementById("prayer").innerHTML =
-          `<h1>Последование ко Святому Причащению</h1> 
-          <p>Начало обычное</p>
-          <p>Молитвами святых отец наших, Господи Иисусе Христе Боже наш, помилуй нас. Аминь.</p> 
+    if (isAtBottomOfPage()) {
+        longPressTimeout = setTimeout(function() {
+            document.getElementById("prayer").innerHTML =
+              `<h1>Последование ко Святому Причащению</h1> 
+              <p>Начало обычное</p>
+               <p>Молитвами святых отец наших, Господи Иисусе Христе Боже наш, помилуй нас. Аминь.</p> 
           <p>Царю Небесный, Утешителю, Душе истины, Иже везде сый и вся исполняяй, Сокровище благих и жизни Подателю, прииди и вселися в ны, и очисти ны от всякия скверны, и спаси, Блаже, души наша.</p> 
           <p>Святый Боже, Святый Крепкий, Святый Безсмертный, помилуй нас (трижды).</p> <p>Слава Отцу и Сыну и Святому Духу, и ныне и присно и во веки веков. Аминь.</p> 
           <p>Пресвятая Троице, помилуй нас; Господи, очисти грехи наша; Владыко, прости беззакония наша; Святый, посети и исцели немощи наша, имене Твоего ради.</p> 
@@ -202,15 +202,22 @@ document.addEventListener('touchstart', function(event) {
          <h3>И еще:</h3>
          <p>Вечери Твоея тайныя днесь, Сыне Божий, причастника мя приими; не бо врагом Твоим тайну повем, ни лобзания Ти дам, яко Иуда, но яко разбойник исповедаю Тя: помяни мя, Господи, во Царствии Твоем.</p><br>
          `;
-    }, 500); // 500ms delay for long press
+        }, 500); // 500ms delay for long press
+    }
 }, false);
 
 document.addEventListener('touchend', function(event) {
     clearTimeout(longPressTimeout);
 }, false);
 
+function isAtBottomOfPage() {
+    return window.innerHeight + window.scrollY >= document.body.offsetHeight;
+}
 
-
+  
+  
+  
+          
     
           
 // канон в день со свайпом
