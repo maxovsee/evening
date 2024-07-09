@@ -221,10 +221,11 @@ function isAtBottomOfPage() {
     
           
 // канон в день со свайпом
-const kanons = document.querySelectorAll('.kanon');
+let kanons = document.querySelectorAll('.kanon');
 let currentDay = new Date().getDate(); // 1-31
 let startIndex = (currentDay - 2) % kanons.length;
 let currentKanonIndex = startIndex;
+let kanonRect;
 
 kanons.forEach((kanon, index) => {
   if (index === startIndex) {
@@ -234,16 +235,19 @@ kanons.forEach((kanon, index) => {
   }
 });
 
-// Add event listener for swipe gesture
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
 
 let xDown = null;
 let yDown = null;
+let swipeThreshold = window.innerWidth / 2; // swipe threshold is half of the screen width
 
 function handleTouchStart(evt) {
-  xDown = evt.touches[0].clientX;
-  yDown = evt.touches[0].clientY;
+  kanonRect = kanons[currentKanonIndex].getBoundingClientRect();
+  if (isKanonInView()) {
+    xDown = evt.touches[0].clientX;
+    yDown = evt.touches[0].clientY;
+  }
 };
 
 function handleTouchMove(evt) {
@@ -258,12 +262,14 @@ function handleTouchMove(evt) {
   let yDiff = yDown - yUp;
 
   if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-    if ( xDiff > 0 ) {
-      // swipe right
-      currentKanonIndex = (currentKanonIndex + 1) % kanons.length;
-    } else {
-      // swipe left
-      currentKanonIndex = (currentKanonIndex - 1 + kanons.length) % kanons.length;
+    if ( Math.abs( xDiff ) > swipeThreshold ) {
+      if ( xDiff > 0 ) {
+        // swipe right
+        currentKanonIndex = (currentKanonIndex + 1) % kanons.length;
+      } else {
+        // swipe left
+        currentKanonIndex = (currentKanonIndex - 1 + kanons.length) % kanons.length;
+      }
     }
   }
 
@@ -279,3 +285,12 @@ function handleTouchMove(evt) {
   xDown = null;
   yDown = null;
 };
+
+function isKanonInView() {
+  return (
+    kanonRect.top >= 0 &&
+    kanonRect.left >= 0 &&
+    kanonRect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    kanonRect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
