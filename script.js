@@ -225,10 +225,6 @@ const kanons = document.querySelectorAll('.kanon');
 let currentDay = new Date().getDate(); // 1-31
 let startIndex = (currentDay - 2) % kanons.length;
 let currentKanonIndex = startIndex;
-let kanonRect;
-let swipeThreshold = window.innerWidth / 10; // adjust this value to your liking
-let swipeVelocityThreshold = 0.1; // adjust this value to your liking
-let touchStartTime;
 
 kanons.forEach((kanon, index) => {
   if (index === startIndex) {
@@ -238,20 +234,16 @@ kanons.forEach((kanon, index) => {
   }
 });
 
+// Add event listener for swipe gesture
 document.addEventListener('touchstart', handleTouchStart, false);
 document.addEventListener('touchmove', handleTouchMove, false);
-document.addEventListener('touchend', handleTouchEnd, false);
 
 let xDown = null;
 let yDown = null;
 
 function handleTouchStart(evt) {
-  kanonRect = kanons[currentKanonIndex].getBoundingClientRect();
-  if (isKanonInView()) {
-    xDown = evt.touches[0].clientX;
-    yDown = evt.touches[0].clientY;
-    touchStartTime = evt.timeStamp;
-  }
+  xDown = evt.touches[0].clientX;
+  yDown = evt.touches[0].clientY;
 };
 
 function handleTouchMove(evt) {
@@ -265,16 +257,13 @@ function handleTouchMove(evt) {
   let xDiff = xDown - xUp;
   let yDiff = yDown - yUp;
 
-  let swipeVelocity = Math.abs(xDiff) / (evt.timeStamp - touchStartTime);
   if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-    if ( Math.abs( xDiff ) > swipeThreshold && swipeVelocity > swipeVelocityThreshold ) {
-      if ( xDiff > 0 ) {
-        // swipe right
-        currentKanonIndex = (currentKanonIndex + 1) % kanons.length;
-      } else {
-        // swipe left
-        currentKanonIndex = (currentKanonIndex - 1 + kanons.length) % kanons.length;
-      }
+    if ( xDiff > 0 ) {
+      // swipe right
+      currentKanonIndex = (currentKanonIndex + 1) % kanons.length;
+    } else {
+      // swipe left
+      currentKanonIndex = (currentKanonIndex - 1 + kanons.length) % kanons.length;
     }
   }
 
@@ -290,18 +279,3 @@ function handleTouchMove(evt) {
   xDown = null;
   yDown = null;
 };
-
-function handleTouchEnd(evt) {
-  xDown = null;
-  yDown = null;
-};
-
-function isKanonInView() {
-  return (
-    kanonRect.top >= 0 &&
-    kanonRect.left >= 0 &&
-    kanonRect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    kanonRect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
