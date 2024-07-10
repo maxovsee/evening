@@ -234,9 +234,22 @@ kanons.forEach((kanon, index) => {
   }
 });
 
-// Add event listener for swipe gesture
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchmove', handleTouchMove, false);
+function isElementInViewport(el) {
+  var rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+kanons.forEach((kanon) => {
+  if (isElementInViewport(kanon)) {
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchmove', handleTouchMove, false);
+  }
+});
 
 let xDown = null;
 let yDown = null;
@@ -279,3 +292,4 @@ function handleTouchMove(evt) {
   xDown = null;
   yDown = null;
 };
+
