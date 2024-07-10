@@ -226,7 +226,7 @@ let currentDay = new Date().getDate(); // 1-31
 let startIndex = (currentDay - 2) % kanons.length;
 let currentKanonIndex = startIndex;
 let kanonRect;
-let swipeThreshold = window.innerWidth / 8; // adjust this value to your liking
+let swipeThreshold = window.innerWidth / 10; // adjust this value to your liking
 let swipeVelocityThreshold = 0.1; // adjust this value to your liking
 let touchStartTime;
 
