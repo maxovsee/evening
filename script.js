@@ -220,92 +220,64 @@ function isAtBottomOfPage() {
           
     
           
-// канон в день со свайпом
+// единственно рабочий
+
+// канон в день со свайпом (вечерние)
 const kanons = document.querySelectorAll('.kanon');
 let currentDay = new Date().getDate(); // 1-31
 let startIndex = (currentDay - 2) % kanons.length;
 let currentKanonIndex = startIndex;
 
 kanons.forEach((kanon, index) => {
-  if (index === startIndex) {
-    kanon.style.display = 'block';
-  } else {
-    kanon.style.display = 'none';
-  }
+ if (index === startIndex) {
+   kanon.style.display = 'block';
+ } else {
+   kanon.style.display = 'none';
+ }
 });
 
-function isElementInViewport(el) {
-  var rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
-let touchStartHandler = handleTouchStart;
-let touchMoveHandler = handleTouchMove;
-
-kanons.forEach((kanon) => {
-  if (isElementInViewport(kanon)) {
-    document.addEventListener('touchstart', touchStartHandler, false);
-    document.addEventListener('touchmove', touchMoveHandler, false);
-  }
-});
-
-window.addEventListener('scroll', () => {
-  kanons.forEach((kanon) => {
-    if (!isElementInViewport(kanon)) {
-      document.removeEventListener('touchstart', touchStartHandler, false);
-      document.removeEventListener('touchmove', touchMoveHandler, false);
-    } else {
-      document.addEventListener('touchstart', touchStartHandler, false);
-      document.addEventListener('touchmove', touchMoveHandler, false);
-    }
-  });
-});
+// Add event listener for swipe gesture
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
 
 let xDown = null;
 let yDown = null;
 
 function handleTouchStart(evt) {
-  xDown = evt.touches[0].clientX;
-  yDown = evt.touches[0].clientY;
+ xDown = evt.touches[0].clientX;
+ yDown = evt.touches[0].clientY;
 };
 
 function handleTouchMove(evt) {
-  if ( ! xDown || ! yDown ) {
-    return;
-  }
+ if ( ! xDown || ! yDown ) {
+   return;
+ }
 
-  let xUp = evt.touches[0].clientX;
-  let yUp = evt.touches[0].clientY;
+ let xUp = evt.touches[0].clientX;
+ let yUp = evt.touches[0].clientY;
 
-  let xDiff = xDown - xUp;
-  let yDiff = yDown - yUp;
+ let xDiff = xDown - xUp;
+ let yDiff = yDown - yUp;
 
-  if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-    if ( xDiff > 0 ) {
-      // swipe right
-      currentKanonIndex = (currentKanonIndex + 1) % kanons.length;
-    } else {
-      // swipe left
-      currentKanonIndex = (currentKanonIndex - 1 + kanons.length) % kanons.length;
-    }
-  }
+ if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+   if ( xDiff > 0 ) {
+     // swipe right
+     currentKanonIndex = (currentKanonIndex + 1) % kanons.length;
+   } else {
+     // swipe left
+     currentKanonIndex = (currentKanonIndex - 1 + kanons.length) % kanons.length;
+   }
+ }
 
-  kanons.forEach((kanon, index) => {
-    if (index === currentKanonIndex) {
-      kanon.style.display = 'block';
-    } else {
-      kanon.style.display = 'none';
-    }
-  });
+ kanons.forEach((kanon, index) => {
+   if (index === currentKanonIndex) {
+     kanon.style.display = 'block';
+   } else {
+     kanon.style.display = 'none';
+   }
+ });
 
-  /* reset values */
-  xDown = null;
-  yDown = null;
+ /* reset values */
+ xDown = null;
+ yDown = null;
 };
-
-
