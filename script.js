@@ -244,11 +244,26 @@ function isElementInViewport(el) {
   );
 }
 
+let touchStartHandler = handleTouchStart;
+let touchMoveHandler = handleTouchMove;
+
 kanons.forEach((kanon) => {
   if (isElementInViewport(kanon)) {
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchmove', handleTouchMove, false);
+    document.addEventListener('touchstart', touchStartHandler, false);
+    document.addEventListener('touchmove', touchMoveHandler, false);
   }
+});
+
+window.addEventListener('scroll', () => {
+  kanons.forEach((kanon) => {
+    if (!isElementInViewport(kanon)) {
+      document.removeEventListener('touchstart', touchStartHandler, false);
+      document.removeEventListener('touchmove', touchMoveHandler, false);
+    } else {
+      document.addEventListener('touchstart', touchStartHandler, false);
+      document.addEventListener('touchmove', touchMoveHandler, false);
+    }
+  });
 });
 
 let xDown = null;
@@ -292,4 +307,5 @@ function handleTouchMove(evt) {
   xDown = null;
   yDown = null;
 };
+
 
