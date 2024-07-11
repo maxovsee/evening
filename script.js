@@ -222,11 +222,12 @@ function isAtBottomOfPage() {
           
 // единственно рабочий
 
-// канон в день со свайпом (вечерние)
-const kanons = document.querySelectorAll('.kanon');
+//канон в день
+ // каноны по одному в день (вечерние)
+ const kanons = document.querySelectorAll('.kanon');
 let currentDay = new Date().getDate(); // 1-31
+
 let startIndex = (currentDay - 2) % kanons.length;
-let currentKanonIndex = startIndex;
 
 kanons.forEach((kanon, index) => {
  if (index === startIndex) {
@@ -235,49 +236,3 @@ kanons.forEach((kanon, index) => {
    kanon.style.display = 'none';
  }
 });
-
-// Add event listener for swipe gesture
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchmove', handleTouchMove, false);
-
-let xDown = null;
-let yDown = null;
-
-function handleTouchStart(evt) {
- xDown = evt.touches[0].clientX;
- yDown = evt.touches[0].clientY;
-};
-
-function handleTouchMove(evt) {
- if ( ! xDown || ! yDown ) {
-   return;
- }
-
- let xUp = evt.touches[0].clientX;
- let yUp = evt.touches[0].clientY;
-
- let xDiff = xDown - xUp;
- let yDiff = yDown - yUp;
-
- if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-   if ( xDiff > 0 ) {
-     // swipe right
-     currentKanonIndex = (currentKanonIndex + 1) % kanons.length;
-   } else {
-     // swipe left
-     currentKanonIndex = (currentKanonIndex - 1 + kanons.length) % kanons.length;
-   }
- }
-
- kanons.forEach((kanon, index) => {
-   if (index === currentKanonIndex) {
-     kanon.style.display = 'block';
-   } else {
-     kanon.style.display = 'none';
-   }
- });
-
- /* reset values */
- xDown = null;
- yDown = null;
-};
