@@ -25,7 +25,7 @@
     }
   }
   
-  // функция которая показыввет Правила христианской жизни каждый понедельник
+  // показыввет Правила христианской жизни каждый понедельник
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
@@ -35,8 +35,21 @@
     document.getElementById("monday-text").style.display = "none";
   }
   
+  // глава Евангелие в день
+const glavy = document.querySelectorAll('.glava');
+let currentDayYevangelie = new Date().getDate(); // 1-31
+
+let startIndexYevangelie = (currentDayYevangelie) % glavy.length;
+
+glavy.forEach((glava, index) => {
+ if (index === startIndexYevangelie) {
+   glava.style.display = 'block';
+ } else {
+   glava.style.display = 'none';
+ }
+});
+  
   //молитвы ко Причастию
-  // existing function
 const Saturdays_today = new Date();
 const SaturdaysDayOfWeek = Saturdays_today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday
 const fortnight = Math.floor(Saturdays_today.getDate() / 14); // every 14 days
