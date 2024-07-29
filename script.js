@@ -25,18 +25,7 @@
     }
   }
   
-  // показыввет Правила христианской жизни каждый понедельник
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-
-  if (dayOfWeek === 1) { // 1 = Monday
-    document.getElementById("monday-text").style.display = "block";
-  } else {
-    document.getElementById("monday-text").style.display = "none";
-  }
   
-  // глава Евангелие в день
-
   
   //молитвы ко Причастию
 const Saturdays_today = new Date();
