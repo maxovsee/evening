@@ -392,7 +392,7 @@ function isAtBottomOfPage() {
  const kanons = document.querySelectorAll('.kanon');
 let currentDay = new Date().getDate(); // 1-31
 
-let startIndex = currentDay % kanons.length;
+let startIndex = (currentDay) % kanons.length;
 
 kanons.forEach((kanon, index) => {
  if (index === startIndex) {
@@ -401,3 +401,5 @@ kanons.forEach((kanon, index) => {
    kanon.style.display = 'none';
  }
 });
+
+
